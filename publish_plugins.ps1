@@ -12,11 +12,5 @@ if($args.count -ne 4)
 
 . (".\publish_helper.ps1")
 
-$latestComponentVersion = GetLatestVersionInPath $sourceDirectory;
-$componentFullpath  = $sourceDirectory + "\" + $latestComponentVersion + "\$sourceLocationSecondPart\*"
-
-write-host($componentFullpath)
-
-$newComponentPath = $outputDirectory + "\\" + $versionNumber
-CopyContent $componentFullpath $newComponentPath
+CopyLatestComponent $sourceDirectory $sourceLocationSecondPart $outputDirectory $versionNumber
 

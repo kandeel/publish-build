@@ -27,3 +27,14 @@ function CopyContent($src, $dest)
 	md $dest
 	cp -r $src $dest
 }
+
+function CopyLatestComponent($sourceDirectory, $sourceLocationSecondPart, $outputDirectory, $versionNumber)
+{
+	$latestComponentVersion = GetLatestVersionInPath $sourceDirectory;
+	$componentFullpath  = $sourceDirectory + "\" + $latestComponentVersion + "\$sourceLocationSecondPart\*"
+
+	write-host($componentFullpath)
+
+	$newComponentPath = $outputDirectory + "\\" + $versionNumber
+	CopyContent $componentFullpath $newComponentPath
+}
