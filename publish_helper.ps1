@@ -20,21 +20,21 @@ function GetLatestVersionInPath ($path)
 function CopyContent($src, $dest)
 {
 	$exists = Test-Path $dest
-	if ($exists) 
+	if (!$exists) 
 	{
-		rm $dest -recurse -force
+		md $dest
 	}
-	md $dest
-	cp -r $src $dest
+	
+	cp -r -Force $src $dest
 }
 
-function CopyLatestComponent($sourceDirectory, $sourceLocationSecondPart, $outputDirectory, $versionNumber)
+function CopyLatestComponent($sourceDirectory, $sourceLocationSecondPart, $outputDirectory, $outputDirectoryPart2, $versionNumber)
 {
 	$latestComponentVersion = GetLatestVersionInPath $sourceDirectory;
 	$componentFullpath  = $sourceDirectory + "\" + $latestComponentVersion + "\$sourceLocationSecondPart\*"
 
 	write-host($componentFullpath)
 
-	$newComponentPath = $outputDirectory + "\\" + $versionNumber
+	$newComponentPath = $outputDirectory + "\\" + $versionNumber + "\$outputDirectoryPart2"
 	CopyContent $componentFullpath $newComponentPath
 }
